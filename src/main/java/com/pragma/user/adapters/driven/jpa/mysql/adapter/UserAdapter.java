@@ -2,6 +2,7 @@ package com.pragma.user.adapters.driven.jpa.mysql.adapter;
 
 
 
+import com.pragma.user.adapters.driven.jpa.mysql.entity.RoleEntity;
 import com.pragma.user.adapters.driven.jpa.mysql.entity.UserEntity;
 import com.pragma.user.adapters.driven.jpa.mysql.mapper.IUserEntityMapper;
 import com.pragma.user.adapters.driven.jpa.mysql.repository.IRoleRepository;
@@ -60,5 +61,10 @@ return userRepository.findIdByEmail(username);
     @Override
     public Optional<Long> findIdByIdentification(String identification) {
         return userRepository.findIdByIdentityDocument(identification);
+    }
+
+    @Override
+    public Boolean verifyRoleById(Long id, String role) {
+        return userRepository.existsByIdAndRoleName(id, role);
     }
 }

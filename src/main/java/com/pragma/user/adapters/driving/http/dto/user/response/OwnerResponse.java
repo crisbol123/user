@@ -10,10 +10,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class AuthorizationResponse
+public class OwnerResponse
 {
-    private boolean isPresent;
-    private Long id;
-    private String role;
+private boolean isOwner;
 
 }

@@ -3,6 +3,8 @@ package com.pragma.user.adapters.driven.jpa.mysql.mapper;
 
 import com.pragma.user.adapters.driven.jpa.mysql.entity.RoleEntity;
 import com.pragma.user.adapters.driven.jpa.mysql.repository.IRoleRepository;
+import org.mapstruct.Context;
+import org.mapstruct.Named;
 
 @org.mapstruct.Mapper(componentModel = "spring")
 public interface IRoleEntityMapper {

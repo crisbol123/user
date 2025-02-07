@@ -2,8 +2,9 @@ package com.pragma.user.adapters.driving.http.mapper.user;
 
 
 
-import com.pragma.usuario.usuario.adapters.driving.http.dto.user.request.CreateUserRequest;
-import com.pragma.usuario.usuario.domain.model.User;
+
+import com.pragma.user.adapters.driving.http.dto.user.request.CreateUserRequest;
+import com.pragma.user.domain.model.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

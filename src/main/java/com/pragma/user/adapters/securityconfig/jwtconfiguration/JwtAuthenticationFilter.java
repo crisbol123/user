@@ -1,7 +1,7 @@
 package com.pragma.user.adapters.securityconfig.jwtconfiguration;
 
 
-import com.pragma.usuario.usuario.domain.spi.JwtServicePort;
+import com.pragma.user.domain.spi.JwtServicePort;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

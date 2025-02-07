@@ -1,7 +1,7 @@
 package com.pragma.user.adapters.securityconfig.jwtconfiguration;
 
 
-import com.pragma.usuario.usuario.domain.spi.JwtServicePort;
+import com.pragma.user.domain.spi.JwtServicePort;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

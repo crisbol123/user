@@ -1,13 +1,16 @@
 package com.pragma.user.adapters.driving.http.controller;
 
 
-import com.pragma.usuario.usuario.adapters.driving.http.dto.user.request.AuthorizationRequest;
-import com.pragma.usuario.usuario.adapters.driving.http.dto.user.request.LoginRequest;
-import com.pragma.usuario.usuario.adapters.driving.http.dto.user.response.AuthorizationResponse;
-import com.pragma.usuario.usuario.adapters.driving.http.mapper.login.request.LoginRequestMapper;
-import com.pragma.usuario.usuario.adapters.driving.http.mapper.login.response.AuthResponse;
-import com.pragma.usuario.usuario.adapters.securityconfig.AuthService;
-import com.pragma.usuario.usuario.domain.api.IUserServicePort;
+
+import com.pragma.user.adapters.driving.http.dto.user.request.AuthorizationRequest;
+import com.pragma.user.adapters.driving.http.dto.user.request.OwnerRequest;
+import com.pragma.user.adapters.driving.http.dto.user.request.LoginRequest;
+import com.pragma.user.adapters.driving.http.dto.user.response.AuthorizationResponse;
+import com.pragma.user.adapters.driving.http.dto.user.response.OwnerResponse;
+import com.pragma.user.adapters.driving.http.mapper.login.request.LoginRequestMapper;
+import com.pragma.user.adapters.driving.http.mapper.login.response.AuthResponse;
+import com.pragma.user.adapters.securityconfig.AuthService;
+import com.pragma.user.domain.api.IUserServicePort;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -35,7 +38,11 @@ public class AuthenticateController {
             @ApiResponse(responseCode = "404", description = "User not found",
                     content = @Content)
     })
-    @PostMapping("/validate")
+    @PostMapping("/validate-owner")
+    public OwnerResponse validateOwner(@RequestBody OwnerRequest request) {
+        return userServicePort.validateOwner(request.getId());
+    }
+    @PostMapping("/validate-token")
     public AuthorizationResponse validateToken(@RequestBody AuthorizationRequest request) {
         return userServicePort.validateToken(request.getToken());
     }

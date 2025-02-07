@@ -1,16 +1,16 @@
 package com.pragma.user.configuration;
 
-import com.pragma.usuario.usuario.adapters.driven.jpa.mysql.adapter.UserAdapter;
-import com.pragma.usuario.usuario.adapters.driven.jpa.mysql.entity.UserEntity;
-import com.pragma.usuario.usuario.adapters.driven.jpa.mysql.mapper.IUserEntityMapper;
-import com.pragma.usuario.usuario.adapters.driven.jpa.mysql.repository.IRoleRepository;
-import com.pragma.usuario.usuario.adapters.driven.jpa.mysql.repository.IUserRepository;
-import com.pragma.usuario.usuario.adapters.securityconfig.entity.UserDetailsImp;
-import com.pragma.usuario.usuario.adapters.securityconfig.jwtconfiguration.JwtService;
-import com.pragma.usuario.usuario.domain.api.IUserServicePort;
-import com.pragma.usuario.usuario.domain.spi.IUserPersistencePort;
-import com.pragma.usuario.usuario.domain.spi.JwtServicePort;
-import com.pragma.usuario.usuario.domain.usecases.UserUseCase;
+import com.pragma.user.adapters.driven.jpa.mysql.adapter.UserAdapter;
+import com.pragma.user.adapters.driven.jpa.mysql.entity.UserEntity;
+import com.pragma.user.adapters.driven.jpa.mysql.mapper.IUserEntityMapper;
+import com.pragma.user.adapters.driven.jpa.mysql.repository.IRoleRepository;
+import com.pragma.user.adapters.driven.jpa.mysql.repository.IUserRepository;
+import com.pragma.user.adapters.securityconfig.entity.UserDetailsImp;
+import com.pragma.user.adapters.securityconfig.jwtconfiguration.JwtService;
+import com.pragma.user.domain.api.IUserServicePort;
+import com.pragma.user.domain.spi.IUserPersistencePort;
+import com.pragma.user.domain.spi.JwtServicePort;
+import com.pragma.user.domain.usecases.UserUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

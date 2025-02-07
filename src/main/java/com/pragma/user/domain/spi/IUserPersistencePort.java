@@ -1,9 +1,10 @@
 package com.pragma.user.domain.spi;
 
 
-import com.pragma.usuario.usuario.adapters.driving.http.mapper.login.response.AuthResponse;
-import com.pragma.usuario.usuario.domain.model.Login;
-import com.pragma.usuario.usuario.domain.model.User;
+
+import com.pragma.user.adapters.driving.http.mapper.login.response.AuthResponse;
+import com.pragma.user.domain.model.Login;
+import com.pragma.user.domain.model.User;
 
 import java.util.Optional;
 
@@ -12,5 +13,5 @@ public interface IUserPersistencePort {
     Optional<Long> findIdByUsername(String username);
     AuthResponse login(Login login);
     Optional<Long> findIdByIdentification(String identification);
-
+    Boolean verifyRoleById(Long id, String role);
 }
