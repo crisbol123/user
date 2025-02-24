@@ -1,7 +1,7 @@
 package com.pragma.user.adapters.securityconfig.entity;
 
 
-import com.pragma.usuario.usuario.adapters.driven.jpa.mysql.entity.UserEntity;
+import com.pragma.user.adapters.driven.jpa.mysql.entity.UserEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

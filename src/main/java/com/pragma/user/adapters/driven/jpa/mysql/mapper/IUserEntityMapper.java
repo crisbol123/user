@@ -1,8 +1,10 @@
 package com.pragma.user.adapters.driven.jpa.mysql.mapper;
 
-import com.pragma.usuario.usuario.adapters.driven.jpa.mysql.entity.UserEntity;
-import com.pragma.usuario.usuario.adapters.driven.jpa.mysql.repository.IRoleRepository;
-import com.pragma.usuario.usuario.domain.model.User;
+
+
+import com.pragma.user.adapters.driven.jpa.mysql.entity.UserEntity;
+import com.pragma.user.adapters.driven.jpa.mysql.repository.IRoleRepository;
+import com.pragma.user.domain.model.User;
 import org.mapstruct.Context;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

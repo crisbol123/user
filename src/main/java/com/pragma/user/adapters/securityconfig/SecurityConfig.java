@@ -1,6 +1,6 @@
 package com.pragma.user.adapters.securityconfig;
 
-import com.pragma.usuario.usuario.adapters.securityconfig.jwtconfiguration.JwtAuthenticationFilter;
+import com.pragma.user.adapters.securityconfig.jwtconfiguration.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,6 +20,9 @@ public class SecurityConfig {
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final AuthenticationProvider authProvider;
     private static final String ADMIN_ROLE = "ADMIN";
+    private static final String OWNER_ROLE = "OWNER";
+    private static final String CUSTOMER_ROLE = "CUSTOMER";
+    private static final String EMPLOYEE_ROLE = "EMPLOYEE";
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -32,11 +35,13 @@ public class SecurityConfig {
                                 .requestMatchers("/swagger-ui/**").permitAll()
                                 .requestMatchers("/swagger-resources/**").permitAll()
                                 .requestMatchers("/webjars/**").permitAll()
-                                .requestMatchers("/create-user/admin").permitAll()
-                                .requestMatchers("/auth-user/validate").hasAnyRole("WAREHOUSE_ASSISTANT", ADMIN_ROLE, "CUSTOMER")
-                                .requestMatchers("/create-user/ware-house-assistant").hasRole(ADMIN_ROLE)
-                                .requestMatchers("/create-user/customer").hasRole(ADMIN_ROLE)
-                                .requestMatchers("/auth-user/get-user-id").hasRole("CUSTOMER")
+                                .requestMatchers("/create-user/owner").hasRole(ADMIN_ROLE)
+                                .requestMatchers("/create-user/admin").hasRole(OWNER_ROLE)
+                                .requestMatchers("/auth-user/validate").hasAnyRole(OWNER_ROLE, ADMIN_ROLE, CUSTOMER_ROLE, EMPLOYEE_ROLE)
+                                .requestMatchers("create-user/employee").hasRole(OWNER_ROLE)
+                                .requestMatchers("/create-user/customer").permitAll()
+                                .requestMatchers("/auth-user/get-user-id").hasRole(ADMIN_ROLE)
+                                .requestMatchers("/user/get-phone-number").hasRole(EMPLOYEE_ROLE)
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(sessionManager ->

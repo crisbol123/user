@@ -1,13 +1,15 @@
 package com.pragma.user.adapters.driving.http.controller;
 
 
-import com.pragma.usuario.usuario.adapters.driving.http.dto.user.request.AuthorizationRequest;
-import com.pragma.usuario.usuario.adapters.driving.http.dto.user.request.LoginRequest;
-import com.pragma.usuario.usuario.adapters.driving.http.dto.user.response.AuthorizationResponse;
-import com.pragma.usuario.usuario.adapters.driving.http.mapper.login.request.LoginRequestMapper;
-import com.pragma.usuario.usuario.adapters.driving.http.mapper.login.response.AuthResponse;
-import com.pragma.usuario.usuario.adapters.securityconfig.AuthService;
-import com.pragma.usuario.usuario.domain.api.IUserServicePort;
+import com.pragma.user.adapters.driving.http.dto.user.request.AuthorizationRequest;
+import com.pragma.user.adapters.driving.http.dto.user.request.OwnerRequest;
+import com.pragma.user.adapters.driving.http.dto.user.request.LoginRequest;
+import com.pragma.user.adapters.driving.http.dto.user.response.AuthorizationResponse;
+import com.pragma.user.adapters.driving.http.dto.user.response.OwnerResponse;
+import com.pragma.user.adapters.driving.http.mapper.login.request.LoginRequestMapper;
+import com.pragma.user.domain.model.AuthResponse;
+import com.pragma.user.adapters.securityconfig.AuthService;
+import com.pragma.user.domain.api.IUserServicePort;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -20,37 +22,46 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import static com.pragma.user.configuration.Constants.*;
+
+
 @RestController
-@RequestMapping("/auth-user")
+@RequestMapping(AUTH_USER)
 @RequiredArgsConstructor
 public class AuthenticateController {
+
 
     private final AuthService authService;
     private final IUserServicePort userServicePort;
     private final LoginRequestMapper loginRequestMapper;
-    @Operation(summary = "Find user ID by username", description = "Returns the user ID based on the provided username.")
+
+    @Operation(summary = FIND_USER_ID_BY_USERNAME, description = FIND_USER_DESCRIPTION)
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "User ID found",
+            @ApiResponse(responseCode = RESPONSE_OK, description = USER_ID_FOUND,
                     content = @Content(schema = @Schema(implementation = Long.class))),
-            @ApiResponse(responseCode = "404", description = "User not found",
+            @ApiResponse(responseCode = RESPONSE_NOT_FOUND, description = USER_NOT_FOUND,
                     content = @Content)
     })
-    @PostMapping("/validate")
+    @PostMapping(VALIDATE_OWNER_PATH)
+    public OwnerResponse validateOwner(@RequestBody OwnerRequest request) {
+        return userServicePort.validateOwner(request.getId());
+    }
+
+    @PostMapping(VALIDATE_TOKEN_PATH)
     public AuthorizationResponse validateToken(@RequestBody AuthorizationRequest request) {
         return userServicePort.validateToken(request.getToken());
     }
 
-    @Operation(summary = "User login", description = "Authenticates the user and returns an authentication token.")
+    @Operation(summary = USER_LOGIN_SUMMARY, description = USER_LOGIN_DESCRIPTION)
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "User authenticated successfully",
+            @ApiResponse(responseCode = RESPONSE_OK, description = USER_AUTHENTICATED,
                     content = @Content(schema = @Schema(implementation = AuthResponse.class))),
-            @ApiResponse(responseCode = "401", description = "Unauthorized",
+            @ApiResponse(responseCode = RESPONSE_UNAUTHORIZED, description = UNAUTHORIZED,
                     content = @Content)
     })
-    @PostMapping(value = "/login")
+    @PostMapping(LOGIN_PATH)
     public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest request) {
-
         return ResponseEntity.ok(userServicePort.login(loginRequestMapper.toDomain(request)));
     }
-
 }
+

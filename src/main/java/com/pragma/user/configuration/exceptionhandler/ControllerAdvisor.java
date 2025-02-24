@@ -1,10 +1,11 @@
 package com.pragma.user.configuration.exceptionhandler;
 
 
-import com.pragma.usuario.usuario.adapters.driven.jpa.mysql.exception.DuplicateDocumentException;
-import com.pragma.usuario.usuario.adapters.driven.jpa.mysql.exception.DuplicateEmailException;
-import com.pragma.usuario.usuario.adapters.securityconfig.exception.NoRolesException;
-import com.pragma.usuario.usuario.domain.exception.ValidationException;
+
+import com.pragma.user.adapters.driven.jpa.mysql.exception.DuplicateDocumentException;
+import com.pragma.user.adapters.driven.jpa.mysql.exception.DuplicateEmailException;
+import com.pragma.user.adapters.securityconfig.exception.NoRolesException;
+import com.pragma.user.domain.exception.ValidationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

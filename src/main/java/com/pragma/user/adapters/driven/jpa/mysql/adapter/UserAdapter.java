@@ -6,7 +6,7 @@ import com.pragma.user.adapters.driven.jpa.mysql.entity.UserEntity;
 import com.pragma.user.adapters.driven.jpa.mysql.mapper.IUserEntityMapper;
 import com.pragma.user.adapters.driven.jpa.mysql.repository.IRoleRepository;
 import com.pragma.user.adapters.driven.jpa.mysql.repository.IUserRepository;
-import com.pragma.user.adapters.driving.http.mapper.login.response.AuthResponse;
+import com.pragma.user.domain.model.AuthResponse;
 import com.pragma.user.domain.model.Login;
 import com.pragma.user.domain.model.User;
 import com.pragma.user.domain.spi.IUserPersistencePort;
@@ -32,12 +32,19 @@ public class UserAdapter implements IUserPersistencePort {
     private final AuthenticationManager authenticationManager;
     private final UserDetailsService userDetailsServiceImp;
     private final JwtServicePort jwtServicePort;
-
     @Override
     public void saveUser(User user) {
         UserEntity userEntity = userEntityMapper.toEntity(user, iRoleRepository);
         userEntity.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(userEntity);
+    }
+
+    @Override
+        public Long saveEmployee(User user, Long restaurantId) {
+        UserEntity userEntity = userEntityMapper.toEntity(user, iRoleRepository);
+        userEntity.setPassword(passwordEncoder.encode(user.getPassword()));
+       return userRepository.save(userEntity).getId();
+
     }
 
     @Override
@@ -60,5 +67,15 @@ return userRepository.findIdByEmail(username);
     @Override
     public Optional<Long> findIdByIdentification(String identification) {
         return userRepository.findIdByIdentityDocument(identification);
+    }
+
+    @Override
+    public Boolean verifyRoleById(Long id, String role) {
+        return userRepository.existsByIdAndRoleName(id, role);
+    }
+
+    @Override
+    public String getPhoneNumber(Long clientId) {
+        return userRepository.getPhoneNumberById(clientId);
     }
 }

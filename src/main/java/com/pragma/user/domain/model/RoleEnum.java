@@ -1,7 +1,8 @@
 package com.pragma.user.domain.model;
 
 public enum RoleEnum {
-    ROLE_ADMIN,
+    ROLE_OWNER,
     ROLE_CUSTOMER,
-    ROLE_WAREHOUSE_ASSISTANT
+    ROLE_ADMIN,
+    ROLE_EMPLOYEE
 }
