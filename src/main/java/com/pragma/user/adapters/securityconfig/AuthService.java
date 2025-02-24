@@ -4,7 +4,7 @@ package com.pragma.user.adapters.securityconfig;
 
 import com.pragma.user.adapters.driven.jpa.mysql.repository.IUserRepository;
 import com.pragma.user.adapters.driving.http.dto.user.request.LoginRequest;
-import com.pragma.user.adapters.driving.http.mapper.login.response.AuthResponse;
+import com.pragma.user.domain.model.AuthResponse;
 import com.pragma.user.adapters.securityconfig.jwtconfiguration.JwtService;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

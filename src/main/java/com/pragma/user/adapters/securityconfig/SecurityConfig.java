@@ -22,6 +22,7 @@ public class SecurityConfig {
     private static final String ADMIN_ROLE = "ADMIN";
     private static final String OWNER_ROLE = "OWNER";
     private static final String CUSTOMER_ROLE = "CUSTOMER";
+    private static final String EMPLOYEE_ROLE = "EMPLOYEE";
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -34,12 +35,13 @@ public class SecurityConfig {
                                 .requestMatchers("/swagger-ui/**").permitAll()
                                 .requestMatchers("/swagger-resources/**").permitAll()
                                 .requestMatchers("/webjars/**").permitAll()
-                                .requestMatchers("/create-user/owner").permitAll()
+                                .requestMatchers("/create-user/owner").hasRole(ADMIN_ROLE)
                                 .requestMatchers("/create-user/admin").hasRole(OWNER_ROLE)
-                                .requestMatchers("/auth-user/validate").hasAnyRole(OWNER_ROLE, ADMIN_ROLE, CUSTOMER_ROLE)
-                                .requestMatchers("/create-user/ware-house-assistant").hasRole(ADMIN_ROLE)
-                                .requestMatchers("/create-user/customer").hasRole(ADMIN_ROLE)
+                                .requestMatchers("/auth-user/validate").hasAnyRole(OWNER_ROLE, ADMIN_ROLE, CUSTOMER_ROLE, EMPLOYEE_ROLE)
+                                .requestMatchers("create-user/employee").hasRole(OWNER_ROLE)
+                                .requestMatchers("/create-user/customer").permitAll()
                                 .requestMatchers("/auth-user/get-user-id").hasRole(ADMIN_ROLE)
+                                .requestMatchers("/user/get-phone-number").hasRole(EMPLOYEE_ROLE)
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(sessionManager ->

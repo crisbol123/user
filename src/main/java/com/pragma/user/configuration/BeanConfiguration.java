@@ -1,5 +1,6 @@
 package com.pragma.user.configuration;
 
+import com.pragma.user.adapters.driven.feigns.clients.FoodCourtFeignClient;
 import com.pragma.user.adapters.driven.jpa.mysql.adapter.UserAdapter;
 import com.pragma.user.adapters.driven.jpa.mysql.entity.UserEntity;
 import com.pragma.user.adapters.driven.jpa.mysql.mapper.IUserEntityMapper;
@@ -34,6 +35,7 @@ public class BeanConfiguration {
     private final IRoleRepository roleRepository;
     private final IUserEntityMapper userEntityMapper;
    private AuthenticationConfiguration config;
+   private final FoodCourtFeignClient feignClient;
 
 
         @Bean
@@ -80,7 +82,7 @@ public class BeanConfiguration {
 
     @Bean
     public IUserServicePort userServicePort() throws Exception {
-        return new UserUseCase(userPersistencePort(), jwtServicePort());
+        return new UserUseCase(userPersistencePort(), jwtServicePort(), feignClient);
     }
 }
 

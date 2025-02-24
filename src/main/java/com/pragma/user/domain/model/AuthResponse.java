@@ -1,4 +1,4 @@
-package com.pragma.user.adapters.driving.http.mapper.login.response;
+package com.pragma.user.domain.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

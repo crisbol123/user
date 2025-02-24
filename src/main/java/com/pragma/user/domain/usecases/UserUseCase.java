@@ -2,15 +2,16 @@ package com.pragma.user.domain.usecases;
 
 
 
+import com.pragma.user.adapters.driven.feigns.clients.FoodCourtFeignClient;
+import com.pragma.user.adapters.driven.feigns.dto.NewEmployeeRequest;
 import com.pragma.user.adapters.driven.jpa.mysql.exception.DuplicateDocumentException;
 import com.pragma.user.adapters.driven.jpa.mysql.exception.DuplicateEmailException;
 import com.pragma.user.adapters.driving.http.dto.user.response.AuthorizationResponse;
 import com.pragma.user.adapters.driving.http.dto.user.response.OwnerResponse;
-import com.pragma.user.adapters.driving.http.mapper.login.response.AuthResponse;
+import com.pragma.user.domain.model.AuthResponse;
 import com.pragma.user.domain.api.IUserServicePort;
 import com.pragma.user.domain.exception.ValidationException;
 import com.pragma.user.domain.model.Login;
-import com.pragma.user.domain.model.Role;
 import com.pragma.user.domain.model.RoleEnum;
 import com.pragma.user.domain.model.User;
 import com.pragma.user.domain.spi.IUserPersistencePort;
@@ -28,6 +29,7 @@ public class UserUseCase implements IUserServicePort {
 
     private final IUserPersistencePort userPersistencePort;
     private final JwtServicePort jwtServicePort;
+    private final FoodCourtFeignClientPort feignClient;
 
 
     private void createUser(User user, String role) {
@@ -61,25 +63,35 @@ public class UserUseCase implements IUserServicePort {
             throw new DuplicateDocumentException();
         }
         user.setRoleName(role);
-        userPersistencePort.saveUser(user);
+
 
     }
 
     @Override
     public void createOwner(User user) {
         createUser(user, RoleEnum.ROLE_OWNER.toString());
+        userPersistencePort.saveUser(user);
 
     }
 
     @Override
     public void createCustomer(User user) {
         createUser(user, RoleEnum.ROLE_CUSTOMER.toString());
+        userPersistencePort.saveUser(user);
 
     }
 
     @Override
-    public void createEmployee(User user) {
+    public void createEmployee(User user, long restaurantId) {
+
         createUser(user, RoleEnum.ROLE_EMPLOYEE.toString());
+     Long employeeId =userPersistencePort.saveEmployee(user, restaurantId);
+
+        NewEmployeeRequest newEmployeeRequest =  NewEmployeeRequest.builder()
+                .employeeId(employeeId)
+                .restaurantId(restaurantId)
+                .build();
+        feignClient.createEmployee(newEmployeeRequest);
     }
 
     @Override
@@ -112,8 +124,10 @@ public class UserUseCase implements IUserServicePort {
 
     }
 
-
-
+    @Override
+    public String getPhoneNumber(Long clientId) {
+        return userPersistencePort.getPhoneNumber(clientId);
+    }
 
 
 }
